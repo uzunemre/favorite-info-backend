@@ -12,6 +12,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import lombok.Data;
 
+
 @Data
 @Entity
 @Table(name = "USER")
@@ -23,19 +24,12 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @NotNull(message = "{favorite.constraints.username.NotNull.message}")
-    @Size(min = 4, max = 255)
-    @UniqueUsername
     @Column(name = "USER_NAME")
     private String username;
 
-    @NotNull
-    @Size(min = 4, max = 255)
     @Column(name = "NAME")
     private String name;
 
-    @NotNull
-    @Size(min = 4, max = 255)
     @Column(name = "SURNAME")
     private String surname;
 

@@ -1,4 +1,7 @@
 version: '3.7'
+volumes:
+  database_data:
+    driver: local
 
 services:
   dev_postgressql:
@@ -6,8 +9,9 @@ services:
     container_name: dev_postgres_postgresql
     environment:
       POSTGRES_PASSWORD: 123456
+      PGDATA: /data/postgres
     restart: on-failure
     ports:
       - "5432:5432"
     volumes:
-      - ./postgresql_postgres_volume:/var/lib/postgresql/data
+      - database_data:/data/postgres
