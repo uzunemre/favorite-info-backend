@@ -14,7 +14,7 @@ public class CategoryResponse {
 
     public CategoryResponse(Category category) {
         this.setId(category.getId());
-        this.setName(name);
+        this.setName(category.getName());
     }
 
 }
