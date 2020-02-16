@@ -1,5 +1,6 @@
 package com.eu.favorite.category;
 
+import com.eu.favorite.user.User;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,7 +16,11 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "USER_ID", nullable = false)
+    private User user;
 
 }
