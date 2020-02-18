@@ -1,4 +1,4 @@
-package com.eu.favorite.user;
+package com.eu.favorite.model;
 
 import java.beans.Transient;
 import java.util.Collection;

@@ -1,8 +1,6 @@
-package com.eu.favorite.category;
+package com.eu.favorite.model;
 
-import com.eu.favorite.user.User;
 import lombok.Data;
-
 import javax.persistence.*;
 
 @Data

@@ -1,10 +1,12 @@
-package com.eu.favorite.category;
+package com.eu.favorite.controller;
 
-import com.eu.favorite.category.dto.CategoryRequest;
-import com.eu.favorite.category.dto.CategoryResponse;
+import com.eu.favorite.service.CategoryService;
+import com.eu.favorite.dto.CategoryAddRequest;
+import com.eu.favorite.dto.CategoryResponse;
+import com.eu.favorite.model.Category;
 import com.eu.favorite.shared.CurrentUser;
 import com.eu.favorite.shared.GenericResponse;
-import com.eu.favorite.user.User;
+import com.eu.favorite.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,9 +31,8 @@ public class CategoryController {
         return ResponseEntity.ok(response);
     }
 
-
     @PostMapping("/categories")
-    public ResponseEntity<?> createCategory(@Valid @RequestBody CategoryRequest request, @CurrentUser User loggedInUser) {
+    public ResponseEntity<?> createCategory(@Valid @RequestBody CategoryAddRequest request, @CurrentUser User loggedInUser) {
         Category category = new Category();
         category.setName(request.getName());
         category.setUser(loggedInUser);

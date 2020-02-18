@@ -1,9 +1,12 @@
-package com.eu.favorite.user;
+package com.eu.favorite.controller;
 
 import javax.validation.Valid;
 
+import com.eu.favorite.factory.UserFactory;
+import com.eu.favorite.model.User;
 import com.eu.favorite.shared.GenericResponse;
-import com.eu.favorite.user.dto.UserSignUpRequest;
+import com.eu.favorite.dto.UserSignUpRequest;
+import com.eu.favorite.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

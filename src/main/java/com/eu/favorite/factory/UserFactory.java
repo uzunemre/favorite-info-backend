@@ -1,10 +1,11 @@
-package com.eu.favorite.user;
+package com.eu.favorite.factory;
 
-import com.eu.favorite.user.dto.UserSignUpRequest;
+import com.eu.favorite.model.User;
+import com.eu.favorite.dto.UserSignUpRequest;
 
-class UserFactory {
+public class UserFactory {
 
-    static User createUser(UserSignUpRequest request) {
+    public static User createUser(UserSignUpRequest request) {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setName(request.getName());

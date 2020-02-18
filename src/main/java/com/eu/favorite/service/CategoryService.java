@@ -1,6 +1,9 @@
-package com.eu.favorite.category;
+package com.eu.favorite.service;
 
-import com.eu.favorite.user.User;
+import com.eu.favorite.error.NotFoundException;
+import com.eu.favorite.model.Category;
+import com.eu.favorite.model.User;
+import com.eu.favorite.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,16 +19,16 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    Category save(Category category) {
+    public Category save(Category category) {
         return categoryRepository.save(category);
     }
 
-    List<Category> getCategories() {
+    public List<Category> getCategories() {
         return categoryRepository.findAll();
     }
 
 
-    void deleteCategory(long id) {
+    public void deleteCategory(long id) {
         categoryRepository.deleteById(id);
     }
 
@@ -36,6 +39,14 @@ public class CategoryService {
             return inDB.getUser().getId() == loggedInUser.getId();
         }
         return false;
+    }
+
+    public Category getById(long id) {
+        Optional<Category> category = categoryRepository.findById(id);
+        if (category.isPresent()) {
+            return category.get();
+        }
+        throw new NotFoundException("category not found:" + id);
     }
 
 }

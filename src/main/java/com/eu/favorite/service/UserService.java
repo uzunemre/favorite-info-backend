@@ -1,5 +1,7 @@
-package com.eu.favorite.user;
+package com.eu.favorite.service;
 
+import com.eu.favorite.model.User;
+import com.eu.favorite.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

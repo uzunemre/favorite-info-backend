@@ -5,12 +5,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import com.eu.favorite.user.User;
-import com.eu.favorite.user.UserRepository;
+import com.eu.favorite.model.User;
+import com.eu.favorite.repository.UserRepository;
 
 @Service
 public class AuthUserService implements UserDetailsService {
-	
+
 	@Autowired
 	UserRepository userRepository;
 

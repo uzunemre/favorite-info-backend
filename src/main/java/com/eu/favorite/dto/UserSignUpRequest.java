@@ -1,4 +1,4 @@
-package com.eu.favorite.user.dto;
+package com.eu.favorite.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

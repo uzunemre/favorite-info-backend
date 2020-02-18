@@ -1,6 +1,6 @@
-package com.eu.favorite.category.dto;
+package com.eu.favorite.dto;
 
-import com.eu.favorite.category.Category;
+import com.eu.favorite.model.Category;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

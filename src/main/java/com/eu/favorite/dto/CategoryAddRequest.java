@@ -1,4 +1,4 @@
-package com.eu.favorite.category.dto;
+package com.eu.favorite.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
-public class CategoryRequest {
+public class CategoryAddRequest {
 
     @NotNull
     @Size(min = 2, max = 255)

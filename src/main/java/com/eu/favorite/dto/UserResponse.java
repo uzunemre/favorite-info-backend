@@ -1,6 +1,6 @@
-package com.eu.favorite.user.dto;
+package com.eu.favorite.dto;
 
-import com.eu.favorite.user.User;
+import com.eu.favorite.model.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

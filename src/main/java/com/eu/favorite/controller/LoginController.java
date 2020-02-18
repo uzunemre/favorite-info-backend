@@ -1,7 +1,8 @@
-package com.eu.favorite.user;
+package com.eu.favorite.controller;
 
+import com.eu.favorite.model.User;
 import com.eu.favorite.shared.CurrentUser;
-import com.eu.favorite.user.dto.UserResponse;
+import com.eu.favorite.dto.UserResponse;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
