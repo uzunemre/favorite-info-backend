@@ -19,4 +19,14 @@ public class NoteFactory {
         return note;
     }
 
+    public static Note updateNote(NoteAddRequest request, Note note, Category category) {
+        note.setTitle(request.getTitle());
+        note.setContent(request.getContent());
+        note.setSummary(request.getSummary());
+        note.setImportanceLevel(request.getImportanceLevel());
+        note.setCategory(category);
+        note.setRead(request.isRead());
+        return note;
+    }
+
 }

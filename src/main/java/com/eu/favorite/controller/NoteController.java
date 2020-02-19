@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,6 +29,12 @@ public class NoteController {
     @Autowired
     CategoryService categoryService;
 
+    @GetMapping("/notes/{noteId}")
+    NoteResponse getNoteById(@PathVariable long noteId) {
+        Note note = noteService.getById(noteId);
+        return new NoteResponse(note);
+    }
+
     @GetMapping("/notes")
     Page<NoteResponse> getNotes(@CurrentUser User loggedInUser, Pageable page) {
         return noteService.getNotes(loggedInUser, page).map(NoteResponse::new);
@@ -39,6 +46,16 @@ public class NoteController {
         Note note = NoteFactory.createNote(request, loggedInUser, category);
         noteService.save(note);
         return ResponseEntity.ok(new GenericResponse("Note saved"));
+    }
+
+    @PutMapping("/notes/{id:[0-9]+}")
+    @PreAuthorize("@noteService.isAllowedToModify(#id, principal)")
+    public ResponseEntity<?> updateNote(@PathVariable long id, @Valid @RequestBody NoteAddRequest request) {
+        Note note = noteService.getById(id);
+        Category category = categoryService.getById(request.getCategoryId());
+        note = NoteFactory.updateNote(request, note, category);
+        noteService.save(note);
+        return ResponseEntity.ok(new GenericResponse("Note updated"));
     }
 
 }
