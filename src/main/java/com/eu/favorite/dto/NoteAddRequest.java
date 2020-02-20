@@ -1,11 +1,7 @@
 package com.eu.favorite.dto;
 
-import com.eu.favorite.enumaration.ImportanceLevelEnum;
-import com.eu.favorite.enumaration.ImportanceLevelEnumConverter;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Convert;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -26,8 +22,7 @@ public class NoteAddRequest {
     private Integer categoryId;
 
     @NotNull
-    @Convert(converter = ImportanceLevelEnumConverter.class)
-    private ImportanceLevelEnum importanceLevel;
+    private Integer importanceLevel;
 
     private boolean read = false;
 

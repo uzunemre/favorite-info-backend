@@ -18,6 +18,8 @@ public class NoteResponse {
 
     private Integer level;
 
+    private String importanceLevel;
+
     private long categoryId;
 
     private String category;
@@ -30,6 +32,7 @@ public class NoteResponse {
         this.setContent(note.getContent());
         this.setSummary(note.getSummary());
         this.setLevel(note.getImportanceLevel().getLevel());
+        this.setImportanceLevel(note.getImportanceLevel().getLabel());
         this.setCategoryId(note.getCategory().getId());
         this.setCategory(note.getCategory().getName());
         this.setRead(note.isRead());

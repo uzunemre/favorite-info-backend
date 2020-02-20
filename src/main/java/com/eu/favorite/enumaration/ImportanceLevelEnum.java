@@ -19,4 +19,24 @@ public enum ImportanceLevelEnum {
         this.label = label;
     }
 
+    public static ImportanceLevelEnum getImportanceLevel(Integer level) {
+        if (level == null) {
+            return null;
+        }
+        switch (level) {
+            case 1:
+                return ImportanceLevelEnum.VERY_LOW;
+            case 2:
+                return ImportanceLevelEnum.LOW;
+            case 3:
+                return ImportanceLevelEnum.MEDIUM;
+            case 4:
+                return ImportanceLevelEnum.HIGH;
+            case 5:
+                return ImportanceLevelEnum.VERY_HIGH;
+            default:
+                return null;
+        }
+    }
+
 }

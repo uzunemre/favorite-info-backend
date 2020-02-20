@@ -58,4 +58,11 @@ public class NoteController {
         return ResponseEntity.ok(new GenericResponse("Note updated"));
     }
 
+    @DeleteMapping("/notes/{id:[0-9]+}")
+    @PreAuthorize("@noteService.isAllowedToModify(#id, principal)")
+    GenericResponse deleteNote(@PathVariable long id) {
+        noteService.delete(id);
+        return new GenericResponse("Note is removed");
+    }
+
 }
