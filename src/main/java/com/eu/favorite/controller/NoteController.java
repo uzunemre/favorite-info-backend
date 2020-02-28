@@ -40,6 +40,12 @@ public class NoteController {
         return noteService.getNotes(loggedInUser, page).map(NoteResponse::new);
     }
 
+    @GetMapping("/notes/random-note")
+    NoteResponse getRandomNote(@CurrentUser User loggedInUser) {
+        Note note = noteService.getRandomNote(loggedInUser);
+        return new NoteResponse(note);
+    }
+
     @PostMapping("/notes")
     public ResponseEntity<?> createNote(@Valid @RequestBody NoteAddRequest request, @CurrentUser User loggedInUser) {
         Category category = categoryService.getById(request.getCategoryId());

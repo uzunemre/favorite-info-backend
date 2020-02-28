@@ -1,5 +1,6 @@
 package com.eu.favorite.service;
 
+import com.eu.favorite.enumaration.ImportanceLevelEnum;
 import com.eu.favorite.error.NotFoundException;
 import com.eu.favorite.model.Note;
 import com.eu.favorite.model.User;
@@ -8,7 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -36,6 +37,28 @@ public class NoteService {
             return note.get();
         }
         throw new NotFoundException("note not found:" + id);
+    }
+
+    public Note getRandomNote(User loggedInUser) {
+        List<Integer> levels = new ArrayList<>();
+        Arrays.stream(ImportanceLevelEnum.values()).forEach(
+                importanceLevelEnum -> {
+                    for (int i = 1; i <= importanceLevelEnum.getLevel(); i++) {
+                        levels.add(importanceLevelEnum.getLevel());
+                    }
+                }
+        );
+        Random r = new Random();
+        int index = r.nextInt(levels.size());
+        int randomLevel = levels.get(index);
+        Note note = noteRepository.getRandomByLevelAndByUser(randomLevel, loggedInUser.getId());
+        if (note == null) {
+            note = noteRepository.getRandomByUser(loggedInUser.getId());
+            if (note == null) {
+                throw new NotFoundException("user has no note");
+            }
+        }
+        return note;
     }
 
     public Page<Note> getNotes(User loggedInUser, Pageable pageable) {
