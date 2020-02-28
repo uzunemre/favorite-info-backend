@@ -11,41 +11,39 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
-	
-	@Autowired
-	AuthUserService authUserService;
-	
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
-		
-		http.headers().disable();
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-		http.httpBasic().authenticationEntryPoint(new BasicAuthenticationEntryPoint());
-		
-		http
-			.authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/api/1.0/login").authenticated()
-				.antMatchers(HttpMethod.PUT, "/api/1.0/users/{id:[0-9]+}").authenticated()
-				.antMatchers(HttpMethod.POST, "/api/1.0/favorites/**").authenticated()
-				.antMatchers(HttpMethod.DELETE, "/api/1.0/favorites/{id:[0-9]+}").authenticated()
-			.and()
-			.authorizeRequests().anyRequest().permitAll();
-		
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-	}
+    @Autowired
+    AuthUserService authUserService;
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(authUserService).passwordEncoder(passwordEncoder());
-	}
-	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+        http.csrf().disable();
+        http.headers().disable();
+        http.httpBasic().authenticationEntryPoint(new BasicAuthenticationEntryPoint());
+        http
+                .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/api/1.0/login").authenticated()
+                .antMatchers(HttpMethod.PUT, "/api/1.0/users/{id:[0-9]+}").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/1.0/favorites/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/1.0/favorites/{id:[0-9]+}").authenticated()
+                .and()
+                .authorizeRequests().anyRequest().permitAll();
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(authUserService).passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
