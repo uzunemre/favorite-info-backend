@@ -17,7 +17,7 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     Note getRandomByLevelAndUser(@Param("level") int level,
                                  @Param("user_id") long user_id);
 
-    @Query(value = "select * from favorite.note n where n.importance_level = :level and n.category_id = :category_id n.user_id = :user_id  and read = false " +
+    @Query(value = "select * from favorite.note n where n.importance_level = :level and n.category_id = :category_id and n.user_id = :user_id and read = false " +
             "order by random() limit 1", nativeQuery = true)
     Note getRandomByLevelAndCategoryAndUser(@Param("level") int level,
                                             @Param("category_id") long category_id,

@@ -40,8 +40,14 @@ public class NoteController {
         return noteService.getNotes(loggedInUser, page).map(NoteResponse::new);
     }
 
-    @GetMapping("/notes/random-note/{categoryId}")
-    NoteResponse getRandomNote(@CurrentUser User loggedInUser, @PathVariable Long categoryId) {
+    @GetMapping("/notes/random-note")
+    NoteResponse getRandomNote(@CurrentUser User loggedInUser) {
+        Note note = noteService.getRandomNote(loggedInUser, null);
+        return new NoteResponse(note);
+    }
+
+    @GetMapping("/category/{categoryId}/random-note")
+    NoteResponse getRandomNoteByCategory(@CurrentUser User loggedInUser, @PathVariable Long categoryId) {
         Note note = noteService.getRandomNote(loggedInUser, categoryId);
         return new NoteResponse(note);
     }
