@@ -39,7 +39,7 @@ public class NoteService {
         throw new NotFoundException("note not found:" + id);
     }
 
-    public Note getRandomNote(User loggedInUser) {
+    public Note getRandomNote(User loggedInUser, Long categoryId) {
         List<Integer> levels = new ArrayList<>();
         Arrays.stream(ImportanceLevelEnum.values()).forEach(
                 importanceLevelEnum -> {
@@ -51,7 +51,13 @@ public class NoteService {
         Random r = new Random();
         int index = r.nextInt(levels.size());
         int randomLevel = levels.get(index);
-        Note note = noteRepository.getRandomByLevelAndByUser(randomLevel, loggedInUser.getId());
+        Note note = null;
+        if (categoryId == null) {
+            note = noteRepository.getRandomByLevelAndUser(randomLevel, loggedInUser.getId());
+        } else {
+            note = noteRepository.getRandomByLevelAndCategoryAndUser(randomLevel, categoryId, loggedInUser.getId());
+        }
+
         if (note == null) {
             note = noteRepository.getRandomByUser(loggedInUser.getId());
             if (note == null) {
